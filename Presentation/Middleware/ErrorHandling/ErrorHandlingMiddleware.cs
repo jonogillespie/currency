@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Interfaces.External;
 using FluentValidation;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -100,10 +99,7 @@ namespace Presentation.Middleware.ErrorHandling
         {
             var requestIdService = GetRequestIdService(context);
 
-            var groupedErrors =
-                e.Errors.GroupBy(x => x.PropertyName);
-            
-            var dictionary = BuildBadRequestDictionary(groupedErrors);
+            var dictionary = BuildBadRequestDictionary(e);
 
             var response = new BadRequestResponse("A bad request has occurred",
                 requestIdService?.GetRequestId(),
@@ -112,8 +108,11 @@ namespace Presentation.Middleware.ErrorHandling
             return response;
         }
 
-        private static Dictionary<string, string[]> BuildBadRequestDictionary(IEnumerable<IGrouping<string, ValidationFailure>> groupedErrors)
+        private static Dictionary<string, string[]> BuildBadRequestDictionary(ValidationException ex)
         {
+            var groupedErrors =
+                ex.Errors.GroupBy(x => x.PropertyName);
+            
             var dictionary = new Dictionary<string, string[]>();
 
             foreach (var groupedError in groupedErrors)
