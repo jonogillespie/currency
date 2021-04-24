@@ -55,17 +55,9 @@ namespace Presentation.Middleware.ErrorHandling
             }
         }
 
-        private static ILogger GetLogger(HttpContext context)
-        {
-            var logger =
-                (ILogger) context.RequestServices.GetService(typeof(ILogger));
-            return logger;
-        }
-
         private static string GetHandledExceptionSource(HttpContext context)
         {
-            var configuration =
-                (IConfiguration) context.RequestServices.GetService(typeof(IConfiguration));
+            var configuration = GetConfiguration(context);
 
             var handledExceptionSource =
                 configuration.GetValue<string>("HandledExceptionSource");
@@ -128,11 +120,13 @@ namespace Presentation.Middleware.ErrorHandling
             return dictionary;
         }
 
-        private static IRequestIdService GetRequestIdService(HttpContext context)
-        {
-            var requestIdService =
-                (IRequestIdService) context.RequestServices.GetService(typeof(IRequestIdService));
-            return requestIdService;
-        }
+        private static IRequestIdService GetRequestIdService(HttpContext context) => 
+            (IRequestIdService) context.RequestServices.GetService(typeof(IRequestIdService));
+        
+        private static ILogger GetLogger(HttpContext context) => 
+            (ILogger) context.RequestServices.GetService(typeof(ILogger));
+        
+        private static IConfiguration GetConfiguration(HttpContext context) => 
+            (IConfiguration) context.RequestServices.GetService(typeof(IConfiguration));
     }
 }
