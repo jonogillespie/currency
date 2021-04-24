@@ -16,7 +16,8 @@ export const options = {
 const BASE_URL = 'http://host.docker.internal:8080/v1'
 
 export default function () {
-   group('get ', function() {
+    
+   group('get currencies ', function() {
        const url = `${BASE_URL}/currencies`;
        const res = http.get(url);
        sleep(1);
@@ -25,7 +26,7 @@ export default function () {
        })
    })
 
-    group('get latest scan result', function() {
+    group('get abbreviations', function() {
         const url = `${BASE_URL}/currencies/abbreviations`;
         const res = http.get(url);
         sleep(1);
