@@ -34,7 +34,7 @@ checks that public methods don't have more than three parameters.
 
 To run newman tests, from the root directory run:
 
-```cd Postman```
+```cd Tests/Postman```
 
 ```docker-compose build --no-cache --progress plain```
 
@@ -44,7 +44,7 @@ These tests are set up to run in a CI/CD pipeline (although this hasn't been tes
 
 To run performance tests, from the root directory run:
 
-```cd K6```
+```cd Tests/K6```
 
 ```docker-compose build --no-cache --progress plain```
 
