@@ -28,16 +28,9 @@ namespace Infrastructure.Services
             }
         }
 
-        public async Task<Dictionary<string, CurrencyResponse>> GetCurrentPrices(CancellationToken cancellationToken)
-        {
-            var response = 
-                await GetResponseFromService("ticker",
-                    cancellationToken);
-            
-            return
-                await Deserialize<Dictionary<string, CurrencyResponse>>(response,
-                    cancellationToken);
-        }
+        public async Task<Dictionary<string, CurrencyResponse>> GetCurrentPrices(CancellationToken cancellationToken) =>
+            await GetResponseFromService<Dictionary<string, CurrencyResponse>>("ticker",
+                cancellationToken);
 
         public async Task<double> ConvertToBitcoin(BitcoinConversionInfo bitcoinConversionInfo,
             CancellationToken cancellationToken)
@@ -47,21 +40,17 @@ namespace Infrastructure.Services
                 throw new ArgumentException($"{nameof(bitcoinConversionInfo.Abbreviation)} is required for method" +
                                             $"{nameof(ConvertToBitcoin)}");
             }
-            
-            var path = 
+
+            var path =
                 $"tobtc?currency={bitcoinConversionInfo.Abbreviation}" +
                 $"&value={bitcoinConversionInfo.Amount}";
-            
-            var response =
-                await GetResponseFromService(path,
-                    cancellationToken);
-            
+
             return
-                await Deserialize<double>(response,
+                await GetResponseFromService<double>(path,
                     cancellationToken);
         }
 
-        private async Task<HttpResponseMessage> GetResponseFromService(string path,
+        private async Task<T> GetResponseFromService<T>(string path,
             CancellationToken cancellationToken)
         {
             var url = _configuration["Blockchain:Url"];
@@ -77,7 +66,8 @@ namespace Infrastructure.Services
                     $"{nameof(GetCurrentPrices)} failed with http status code {response.StatusCode}");
             }
 
-            return response;
+            return await Deserialize<T>(response,
+                cancellationToken);
         }
 
         private static async Task<T> Deserialize<T>(HttpResponseMessage response,
