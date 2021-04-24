@@ -38,7 +38,8 @@ namespace Presentation.Middleware.ErrorHandling
             }
         }
 
-        private static void LogErrorIfNotHandled(HttpContext context, Exception e)
+        private static void LogErrorIfNotHandled(HttpContext context,
+            Exception e)
         {
             var logger = GetLogger(context);
 
@@ -76,7 +77,8 @@ namespace Presentation.Middleware.ErrorHandling
             await context.Response.WriteAsJsonAsync(response);
         }
 
-        private static async Task WriteValidationErrorResponse(HttpContext context, ValidationException e)
+        private static async Task WriteValidationErrorResponse(HttpContext context, 
+            ValidationException e)
         {
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
             
