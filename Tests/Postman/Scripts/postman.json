@@ -28,14 +28,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/v1/currencies/abbreviations",
+					"raw": "{{baseUrl}}/v1/currencies",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
 						"v1",
-						"currencies",
-						"abbreviations"
+						"currencies"
 					]
 				}
 			},
@@ -62,15 +61,61 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
 				"url": {
-					"raw": "{{baseUrl}}/v1/currencies",
+					"raw": "{{baseUrl}}/v1/currencies/abbreviations",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
 						"v1",
-						"currencies"
+						"currencies",
+						"abbreviations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Currencies | Convert",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 1s\", () => {",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/v1/currencies/gbp/conversions/123.123",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v1",
+						"currencies",
+						"gbp",
+						"conversions",
+						"123.123"
 					]
 				}
 			},
