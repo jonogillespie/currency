@@ -1,0 +1,12 @@
+parameters:
+  environment: ''
+  
+jobs:
+  - job: Test_${{parameters.environment}}
+    steps:
+      - task: Docker@2
+        displayName: Build docker image and test
+        inputs:
+          command: 'build'
+          Dockerfile: 'Presentation/K6/Dockerfile'
+          arguments: --build-arg ENVIRONMENT="${{parameters.environment}}" --no-cache --progress=plain
