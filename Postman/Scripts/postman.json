@@ -1,0 +1,80 @@
+{
+	"info": {
+		"_postman_id": "0b051169-dd32-4429-9762-b87df80cb6bc",
+		"name": "Currencies",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Currencies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 1s\", () => {",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/v1/currencies/abbreviations",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v1",
+						"currencies",
+						"abbreviations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Currencies | Abbreviations",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 1s\", () => {",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/v1/currencies",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v1",
+						"currencies"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

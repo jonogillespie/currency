@@ -1,0 +1,14 @@
+{
+	"id": "472d1b5e-aa96-4f0c-99d7-4ace42d9ed30",
+	"name": "Local",
+	"values": [
+		{
+			"key": "baseUrl",
+			"value": "http://host.docker.internal:8080",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2021-04-18T13:01:43.357Z",
+	"_postman_exported_using": "Postman/8.0.10"
+}
