@@ -50,7 +50,8 @@ in a production system.
 ### Integration Testing
 
 Integration tests have been used to test the 'plumbing' of the system and perform basic 
-checks on the endpoints.
+checks on the endpoints. I decided to use a full e2e approach for most of these, with full external
+connectivity, as it provides greater confidence that the solution is working as expected.
 
 ### Convention Testing
 
