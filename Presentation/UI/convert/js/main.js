@@ -1,50 +1,97 @@
+
 $(document).ready(() => {
   loadCurrencies();
 });
 
 $("#calculator-form").submit((event) => {
-
   event.preventDefault();
-  
-  convert();
-
+  performConversion();
 });
 
 const loadCurrencies = () => {
   const settings = {
-    "url": "http://localhost:8080/v1/currencies/abbreviations",
-    "method": "GET",
-    "timeout": 0,
+    url: `${baseUrl}/v1/currencies/abbreviations`,
+    method: "GET",
+    timeout: 0
   };
 
   $.ajax(settings).done((response) => {
-
-    let html = '';
-    response.forEach(element => {
-      html += `<option>${element}</option>`
-    });
-
-    const dropdown = $('#currency-select');
-    dropdown.append(html);
+    populateSelectBox(response);
+  }).fail(() => {
+    showErrorMessage('An error occurred fetching the currencies. Please try again later.')
   });
 }
 
-const convert = () => {
+const performConversion = () => {
 
-  const data = $('#calculator-form')
-    .serializeArray()
-    .reduce(function (obj, item) {
-      obj[item.name] = item.value;
-      return obj;
-    }, {});
+  const data = getFormData();
 
   const settings = {
-    "url": `http://localhost:8080/v1/currencies/${data.currency}/conversions/${data.amount}`,
-    "method": "GET",
-    "timeout": 0,
-  };
+    url: `${baseUrl}/v1/currencies/${data.currency}/conversions/${data.amount}`,
+    method: "GET",
+    timeout: 0
+  }
 
   $.ajax(settings).done((response) => {
-    $('#display-currency').empty().append(`<b>${response} BTC</b>`)
-  });
+
+    displayAmount(response)
+
+    hideErrorMessage()
+
+  }).fail(() => {
+
+    showErrorMessage('An error occurred performing your conversion. ' +
+        'Please try again later');
+
+  })
 }
+
+const buildSelectBoxOptionsHtml = (response) => {
+
+  let html = '';
+
+  response.forEach(element => {
+    html += `<option>${element}</option>`
+  });
+
+  return html;
+}
+
+const appendSelectBoxOptions = (html) => {
+
+  const dropdown = $('#currency-select');
+
+  dropdown.append(html);
+}
+
+const populateSelectBox = (response) => {
+
+  let html = buildSelectBoxOptionsHtml(response);
+
+  appendSelectBoxOptions(html);
+}
+
+const getFormData = () =>
+    $('#calculator-form')
+        .serializeArray()
+        .reduce(function (obj, item) {
+          obj[item.name] = item.value;
+          return obj;
+        }, {})
+
+const displayAmount = (response) =>
+    $('#display-currency').empty().append(`<b>${response} BTC</b>`)
+
+const hideErrorMessage = () =>
+    $('#error-message').hide()
+
+const showErrorMessage = (message) => {
+
+  const errorMessage = $('#error-message');
+
+  errorMessage.text(message);
+
+  errorMessage.show();
+}
+
+const baseUrl = 'http://localhost:9080';

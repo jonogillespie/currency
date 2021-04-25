@@ -8,9 +8,9 @@ $(document).ready(() => {
 
 const loadData = () => {
   const settings = {
-    "url": "http://localhost:8080/v1/currencies",
-    "method": "GET",
-    "timeout": 0,
+    url: `http://localhost:9080/v1/currencies`,
+    method: "GET",
+    timeout: 0
   };
 
   $.ajax(settings).done((response) => {
@@ -23,6 +23,9 @@ const loadData = () => {
     const currencyTableRow = $('#currency-table tr');
     currencyTableRow.not(':first').not(':last').remove()
     currencyTableRow.first().after(html);
+    $('#error-message').hide();
+  }).fail(() => {
+    $('#error-message').show();
   });
 }
 
