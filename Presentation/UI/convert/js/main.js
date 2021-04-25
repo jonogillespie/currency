@@ -1,30 +1,30 @@
 
 $(document).ready(() => {
-  loadCurrencies();
-});
+  loadCurrencies()
+})
 
 $("#calculator-form").submit((event) => {
-  event.preventDefault();
-  performConversion();
-});
+  event.preventDefault()
+  performConversion()
+})
 
 const loadCurrencies = () => {
   const settings = {
     url: `${baseUrl}/v1/currencies/abbreviations`,
     method: "GET",
     timeout: 0
-  };
+  }
 
   $.ajax(settings).done((response) => {
-    populateSelectBox(response);
+    populateSelectBox(response)
   }).fail(() => {
     showErrorMessage('An error occurred fetching the currencies. Please try again later.')
-  });
+  })
 }
 
 const performConversion = () => {
 
-  const data = getFormData();
+  const data = getFormData()
 
   const settings = {
     url: `${baseUrl}/v1/currencies/${data.currency}/conversions/${data.amount}`,
@@ -41,42 +41,42 @@ const performConversion = () => {
   }).fail(() => {
 
     showErrorMessage('An error occurred performing your conversion. ' +
-        'Please try again later');
+        'Please try again later')
 
   })
 }
 
 const buildSelectBoxOptionsHtml = (response) => {
 
-  let html = '';
+  let html = ''
 
   response.forEach(element => {
     html += `<option>${element}</option>`
-  });
+  })
 
-  return html;
+  return html
 }
 
 const appendSelectBoxOptions = (html) => {
 
-  const dropdown = $('#currency-select');
+  const dropdown = $('#currency-select')
 
-  dropdown.append(html);
+  dropdown.append(html)
 }
 
 const populateSelectBox = (response) => {
 
-  let html = buildSelectBoxOptionsHtml(response);
+  let html = buildSelectBoxOptionsHtml(response)
 
-  appendSelectBoxOptions(html);
+  appendSelectBoxOptions(html)
 }
 
 const getFormData = () =>
     $('#calculator-form')
         .serializeArray()
         .reduce(function (obj, item) {
-          obj[item.name] = item.value;
-          return obj;
+          obj[item.name] = item.value
+          return obj
         }, {})
 
 const displayAmount = (response) =>
@@ -87,11 +87,11 @@ const hideErrorMessage = () =>
 
 const showErrorMessage = (message) => {
 
-  const errorMessage = $('#error-message');
+  const errorMessage = $('#error-message')
 
-  errorMessage.text(message);
+  errorMessage.text(message)
 
-  errorMessage.show();
+  errorMessage.show()
 }
 
-const baseUrl = 'http://localhost:9080';
+const baseUrl = 'http://localhost:9080'
