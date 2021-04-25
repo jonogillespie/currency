@@ -42,6 +42,7 @@ namespace Infrastructure.Services
             }
 
             var path =
+                // ReSharper disable once StringLiteralTypo
                 $"tobtc?currency={bitcoinConversionInfo.Abbreviation}" +
                 $"&value={bitcoinConversionInfo.Amount}";
 

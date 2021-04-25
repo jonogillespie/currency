@@ -12,10 +12,8 @@ namespace ApplicationTests.UseCases.Currencies.Dto
         public void Map_MappingsCorrect()
         {
             var dictionary = BitcoinPriceServiceFactory.GetDictionary();
-            var first = dictionary.First();
-            var abbreviation = first.Key;
-            var currencyResponse = first.Value;
-            
+            var (abbreviation, currencyResponse) = dictionary.First();
+
             var keyValuePair = dictionary.First();
             var mapper = AutoMapperFactory.Create();
 

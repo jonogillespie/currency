@@ -19,7 +19,7 @@ namespace ApplicationTests.UseCases.Currencies
             public async Task Query_Returns_CorrectValue()
             {
                 var mock = new Mock<IBitcoinPriceService>();
-                var convertedValue = 5.12334;
+                const double convertedValue = 5.12334;
 
                 mock.Setup(x => x.ConvertToBitcoin(It.IsAny<BitcoinConversionInfo>(),
                         CancellationToken.None))
@@ -63,7 +63,7 @@ namespace ApplicationTests.UseCases.Currencies
             [Fact]
             public async Task Validate_ValueNegative_HasErrors()
             {
-                var value = -0.1;
+                const double value = -0.1;
                 var query = new GetBitcoinConversionQuery("GBP", value);
                 var res = await _validator.ValidateAsync(query);
                 Assert.False(res.IsValid);
@@ -73,7 +73,7 @@ namespace ApplicationTests.UseCases.Currencies
             [Fact]
             public async Task Validate_ValueGreaterThan_1000000_HasErrors()
             {
-                var value = 1000000.1;
+                const double value = 1000000.1;
                 var query = new GetBitcoinConversionQuery("GBP", value);
                 var res = await _validator.ValidateAsync(query);
                 Assert.False(res.IsValid);
@@ -83,7 +83,7 @@ namespace ApplicationTests.UseCases.Currencies
             [Fact]
             public async Task Validate_AbbreviationNull_HasErrors()
             {
-                var value = 100;
+                const int value = 100;
                 var query = new GetBitcoinConversionQuery(null, value);
                 var res = await _validator.ValidateAsync(query);
                 Assert.False(res.IsValid);
@@ -93,7 +93,7 @@ namespace ApplicationTests.UseCases.Currencies
             [Fact]
             public async Task Validate_AbbreviationEmpty_HasErrors()
             {
-                var value = 100;
+                const int value = 100;
                 var query = new GetBitcoinConversionQuery(" ", value);
                 var res = await _validator.ValidateAsync(query);
                 Assert.False(res.IsValid);
@@ -103,7 +103,7 @@ namespace ApplicationTests.UseCases.Currencies
             [Fact]
             public async Task Validate_AbbreviationNotExists_HasErrors()
             {
-                var value = 100;
+                const int value = 100;
                 var query = new GetBitcoinConversionQuery("123", value);
                 var res = await _validator.ValidateAsync(query);
                 Assert.False(res.IsValid);

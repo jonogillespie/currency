@@ -13,7 +13,8 @@ namespace Presentation
 {
     public class Startup
     {
-        private static readonly string CorsPolicyName = "CORS";
+        private const string CorsPolicyName = "CORS";
+
         public static void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews(opt =>
@@ -27,7 +28,7 @@ namespace Presentation
             
             services.AddCors(options =>
             {
-                options.AddPolicy(name: CorsPolicyName,
+                options.AddPolicy(CorsPolicyName,
                     builder =>
                     {
                         builder.WithOrigins("*");

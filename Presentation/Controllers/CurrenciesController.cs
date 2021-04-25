@@ -8,6 +8,7 @@ using Presentation.Controllers.Base;
 
 namespace Presentation.Controllers
 {
+    // ReSharper disable once RouteTemplates.ControllerRouteParameterIsNotPassedToMethods
     [Route("v{version:apiVersion}/currencies")]
     [ApiController]
     public class CurrenciesController : AppController
