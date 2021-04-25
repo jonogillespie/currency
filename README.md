@@ -1,10 +1,8 @@
 # currency
 
-This application is built using a Clean Architecture and CQRS approach.
+## Running the solution
 
-# Running the solution
-
-## Backend
+### Backend
 
 To run the backend, from the root directory run:
 
@@ -12,7 +10,7 @@ To run the backend, from the root directory run:
 
 `docker-compose up`
 
-## Frontend
+### Frontend
 
 To run the frontend, from the root directory run:
 
@@ -24,7 +22,9 @@ To run the frontend, from the root directory run:
 
 # Backend
 
-## Error Handling
+This application is built using a Clean Architecture and CQRS approach.
+
+### Error Handling
 
 The solution relies heavily on conventions for error handling. For example, throwing a 
 `ValidationException` will result in a `400` error code being produced.
@@ -87,3 +87,9 @@ To run performance tests, from the root directory run:
 ```docker-compose build --no-cache --progress plain```
 
 These tests are set up to run in a CI/CD pipeline (although this hasn't been tested).
+
+# Frontend
+
+The frontend is very simple and uses a combination of Semantic HTML, jQuery, and Bootstrap to operate.
+
+
