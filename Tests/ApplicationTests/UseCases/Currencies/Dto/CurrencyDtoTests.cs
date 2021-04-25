@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using System.Linq;
-using Application.Interfaces.External;
 using Application.UseCases.Currencies.Dto;
 using ApplicationTests.Infrastructure;
 using Xunit;
