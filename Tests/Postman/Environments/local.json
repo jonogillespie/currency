@@ -4,7 +4,7 @@
 	"values": [
 		{
 			"key": "baseUrl",
-			"value": "http://host.docker.internal:8080",
+			"value": "http://host.docker.internal:9080",
 			"enabled": true
 		}
 	],

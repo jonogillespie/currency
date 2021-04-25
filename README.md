@@ -22,9 +22,12 @@ To run the frontend, from the root directory run:
 
 `http-server`
 
-# Backend Features
+# Backend
 
 ## Error Handling
+
+The solution relies heavily on conventions for error handling. For example, throwing a 
+`ValidationException` will result in a `400` error code being produced.
 
 Application Layer Exceptions are handled in the `LogExceptionsBehaviour` decorator.
 Using decorators for handling these exceptions means that logging takes place automatically,
@@ -34,19 +37,22 @@ Error responses are automatically created in the `ErrorHandlingMiddleware` class
 the type of exception thrown.
 
 
-# Testing
+## Testing
 
-## Unit Testing
+### Code Coverage - 98%
+
+### Unit Testing
 
 Unit testing is used to cover most of the solution. There are a few components that
 haven't been tested this way because of time constraints, but these would all be tested
 in a production system.
 
-## Integration Testing
+### Integration Testing
 
-Integration tests have been used to 
+Integration tests have been used to test the 'plumbing' of the system and perform basic 
+checks on the endpoints.
 
-## Convention Testing
+### Convention Testing
 
 These tests are used to enforce application conventions. 
 This form of testing is rarely used but provides huge benefits in
@@ -58,7 +64,9 @@ asserts that all controllers in the solution support versioning.
 `MethodConventionTests.PublicMethodParameters_Count_LessThan4`
 checks that public methods don't have more than three parameters.
 
-## Postman (Newman) Tests
+### Postman (Newman) Tests
+
+Postman is used for e2e testing.
 
 To run newman tests, from the root directory run:
 
@@ -68,7 +76,9 @@ To run newman tests, from the root directory run:
 
 These tests are set up to run in a CI/CD pipeline (although this hasn't been tested).
 
-## Performance (k6) Tests
+### Performance (k6) Tests
+
+k6 is used for performance testing.
 
 To run performance tests, from the root directory run:
 
