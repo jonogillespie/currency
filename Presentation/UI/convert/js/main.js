@@ -15,8 +15,8 @@ const loadCurrencies = () => {
     timeout: 0
   }
 
-  $.ajax(settings).done((response) => {
-    populateSelectBox(response)
+  $.ajax(settings).done((items) => {
+    populateSelectBox(items)
   }).fail(() => {
     showErrorMessage('An error occurred fetching the currencies. Please try again later.')
   })
@@ -32,9 +32,9 @@ const performConversion = () => {
     timeout: 0
   }
 
-  $.ajax(settings).done((response) => {
+  $.ajax(settings).done((amount) => {
 
-    displayAmount(response)
+    displayAmount(amount)
 
     hideErrorMessage()
 
@@ -46,11 +46,11 @@ const performConversion = () => {
   })
 }
 
-const buildSelectBoxOptionsHtml = (response) => {
+const buildSelectBoxOptionsHtml = (items) => {
 
   let html = ''
 
-  response.forEach(element => {
+  items.forEach(element => {
     html += `<option>${element}</option>`
   })
 
@@ -64,9 +64,9 @@ const appendSelectBoxOptions = (html) => {
   dropdown.append(html)
 }
 
-const populateSelectBox = (response) => {
+const populateSelectBox = (items) => {
 
-  let html = buildSelectBoxOptionsHtml(response)
+  let html = buildSelectBoxOptionsHtml(items)
 
   appendSelectBoxOptions(html)
 }
@@ -79,8 +79,8 @@ const getFormData = () =>
           return obj
         }, {})
 
-const displayAmount = (response) =>
-    $('#display-currency').empty().append(`<b>${response} BTC</b>`)
+const displayAmount = (amount) =>
+    $('#display-currency').empty().append(`<b>${amount} BTC</b>`)
 
 const hideErrorMessage = () =>
     $('#error-message').hide()
