@@ -8,7 +8,7 @@ using Microsoft.Extensions.Caching.Memory;
 namespace Application.Infrastructure.Mediator
 {
     public class MemoryCacheBehaviour<TRequest, TResponse>
-        : IPipelineBehavior<TRequest, TResponse>
+        : IPipelineBehavior<TRequest, TResponse> where TRequest : ICacheable
     {
         private readonly IMemoryCache _memoryCache;
 
@@ -17,11 +17,10 @@ namespace Application.Infrastructure.Mediator
             _memoryCache = memoryCache;
         }
         
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+        public async Task<TResponse> Handle(TRequest request,
+            CancellationToken cancellationToken, 
+            RequestHandlerDelegate<TResponse> next)
         {
-            if (request is not ICacheable cacheable) 
-                return await next();
-            
             var cacheKey = typeof(TRequest)
                 .FullName;
             
@@ -33,7 +32,7 @@ namespace Application.Infrastructure.Mediator
             var res = await next();
             
             _memoryCache
-                .Set(cacheKey, res, TimeSpan.FromSeconds(cacheable.LifetimeSeconds()));
+                .Set(cacheKey, res, TimeSpan.FromSeconds(request.LifetimeSeconds()));
             return res;
         }
     }
