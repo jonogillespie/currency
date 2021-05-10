@@ -69,7 +69,7 @@ namespace Presentation.Middleware.ErrorHandling
         {
             var requestIdService = GetRequestIdService(context);
             
-            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             
             var response =
                 new InternalServerErrorResponse(requestIdService.GetRequestId());
